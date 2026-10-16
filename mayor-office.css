@@ -6,3 +6,9 @@
 @media(max-width:767px){.office-page header .logo{gap:6px;min-width:0}.office-page header .header-middle .bottom-menu .logo h1 a{width:90px}.office-logo-label{font-size:14px}.office-page header .etc-menu{flex-shrink:0}.office-page header .etc-menu>li>a{padding-left:8px;padding-right:8px;white-space:nowrap}.office-page header .etc-menu>li>a span{white-space:nowrap}}
 @media(prefers-reduced-motion:reduce){.office-slide{transition:none}.office-progress span{animation:none}}
 @media print{.office-page header,.office-page footer,.office-hero-controls,.office-back{display:none}.office-page{padding:0}.office-main .inner{width:100%}.office-detail{padding:0}}
+
+/* Use the supplied complete office logo and link to the office home. */
+.office-page header .header-middle .bottom-menu .logo h1 a{display:flex;align-items:center;background:none!important;width:418px;height:43px;max-width:100%}.office-page header .office-logo{display:block;width:100%;height:auto}.office-control-row #office-pause{display:grid;place-items:center;background:#fff;border-radius:50%;width:36px;height:36px;flex:none}.office-control-row #office-pause svg{display:block;width:24px;height:24px}
+@media(max-width:1023px){.office-page header .header-middle .bottom-menu .logo h1 a{width:300px;height:43px}}
+@media(max-width:767px){.office-page header .header-middle .bottom-menu .logo h1 a{width:200px;height:43px}}
+@media(max-width:359px){.office-page header .header-middle .bottom-menu .logo h1 a{width:170px}}
