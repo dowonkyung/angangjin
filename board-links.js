@@ -1,0 +1,14 @@
+// Shared links work on GitHub Pages subpaths as well as at the site root.
+function newsHref(target){if(target.dataset.page==='새소식')return 'news.html';if(target.dataset.article?.startsWith('새소식:'))return 'news.html?id=sample-'+(Number(target.dataset.article.split(':')[1])+1);return null}
+function updateNewsLinks(){document.querySelectorAll('[data-page="새소식"], [data-article^="새소식:"]').forEach(a=>{const href=newsHref(a);if(a.tagName==='A')a.href=href})}
+updateNewsLinks();document.addEventListener('click',e=>{const a=e.target.closest('[data-page="새소식"], [data-article^="새소식:"]');if(!a)return;const href=newsHref(a);if(!href)return;e.preventDefault();e.stopImmediatePropagation();if(e.ctrlKey||e.metaKey)window.open(href,'_blank','noopener');else location.href=href},true);
+
+// Once connected, the homepage's 새소식 tab shows the actual latest published posts.
+(async function(){const config=window.ANGANGJIN_BOARD_CONFIG;if(document.body.classList.contains('board-page')||!config?.supabaseUrl||!config?.publishableKey)return;
+ const panel=document.querySelector('#news-list');if(!panel)return;
+ let rows=[],loadError=false;
+ function render(){panel.replaceChildren();if(!rows.length){const p=document.createElement('p');p.className='empty';p.textContent=loadError?'새소식을 불러오지 못했습니다. 게시판에서 다시 확인해 주세요.':'등록된 새소식이 없습니다.';panel.append(p);return}for(const row of rows){const div=document.createElement('div');div.className='cont';const p=document.createElement('p'),a=document.createElement('a'),span=document.createElement('span');a.href='news.html?id='+encodeURIComponent(row.id);span.textContent=row.title;a.append(span);p.append(a);const date=document.createElement('div');date.className='date';for(const value of [row.department,new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(row.created_at))]){const part=document.createElement('span');part.textContent=value;date.append(part)}div.append(p,date);panel.append(div)}}
+ if(typeof window.renderNews==='function'){const original=window.renderNews;window.renderNews=function(name){original(name);if(name==='새소식')render()}}
+ try{if(!window.supabase)await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='assets/vendor/supabase.js';script.onload=resolve;script.onerror=reject;document.head.append(script)});const client=window.supabase.createClient(config.supabaseUrl,config.publishableKey,{auth:{storageKey:'angangjin-admin',persistSession:true,detectSessionInUrl:false}});const r=await client.from('news_posts').select('id,title,department,created_at').eq('status','published').order('created_at',{ascending:false}).limit(5);if(r.error)throw r.error;rows=r.data}catch{loadError=true}
+ if(document.querySelector('#tabs [aria-selected="true"]')?.textContent==='새소식')render();
+})();
