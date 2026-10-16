@@ -3,7 +3,7 @@
 **symbols-config.js**에서 이미지 경로와 소개 문구를 수정합니다. HTML이나 디자인 코드를 바꿀 필요가 없습니다.
 
 - mark: 구마크. 현재 구마크·상단 로고를 사용합니다. signatures에서 각 조합의 label(이름), image(이미지 파일 경로)를 바꾸세요. image가 비어 있으면 준비 중 카드가 표시됩니다.
-- brand: 도시브랜드. image와 description, details를 바꾸고 colors에 이름·HEX·RGB를 추가할 수 있습니다. typefaces는 지정서체 소개입니다.
+- brand: 도시브랜드. image와 description, details를 바꿀 수 있습니다. 구 상징 색체는 mark.colors의 이름·HEX·RGB에서 수정합니다. typefaces는 지정서체 소개입니다.
 - character: 구캐릭터. 임시 이미지를 전용 이미지로 바꾸고 이름·설명을 입력하세요.
 - slogan: 구정구호. 메인화면에서 사용 중인 assets/slogan.png를 연결했습니다. image 경로로 다른 파일을 지정할 수 있습니다.
 - downloads: [{label:'AI 다운로드',href:'assets/symbols/mark.ai'},{label:'PDF 다운로드',href:'assets/symbols/mark.pdf'}]처럼 실제로 업로드한 파일을 연결하세요. 비어 있는 배열 []이면 버튼을 표시하지 않습니다.
