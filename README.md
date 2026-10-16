@@ -39,3 +39,12 @@
 - `site-content.js`의 `name`, `greeting`, `portrait`, `slogan`, `sloganAlt`, `banners`를 수정하면 구청장 이름, 인사말, 인물 이미지, 슬로건, 우측 소식 이미지를 바꿀 수 있습니다. 현재 인물은 가상의 한도윤이며 SVG 인물 이미지는 임시 삽화입니다.
 - 원본 구청장 섹션의 배경 사진은 디자인 참조용 임시 자산입니다. 배경 파일은 `assets/reference/mayor_bg.png`, `mayor_bg1.png`, `mayor_bg_t.png`, `mayor_bg_m.png`에서 교체할 수 있습니다.
 - 로그인·기관 사이트·다국어는 화면 안내만 제공하며 실제 인증·번역 서비스를 호출하지 않습니다.
+
+## 소식·푸터 및 메뉴 동작
+
+- `news-section`은 원본 `notice-content`와 같은 목록/오른쪽 알림 이미지 구성을 사용합니다. 소식 탭과 목록, 더보기, 알림 배너 컨트롤을 포함하며 CSS는 `news-footer.css`에 있습니다.
+- 오른쪽 알림 이미지는 `assets/notice-01.svg` ~ `notice-03.svg`이며 권장 크기는 408 × 266px입니다. `index.html`의 `.notice-content .slide`에서 이미지 경로를 변경할 수 있습니다.
+- GNB는 클릭으로 열고 같은 메뉴를 다시 클릭하거나 다른 영역을 누르면 닫힙니다. 호버로 열거나 닫지 않으며 하위 제목의 ‘바로가기’ 문구를 제거했습니다.
+- 메인 배너 정지 버튼은 사용자가 제공한 SVG를 사용합니다. 재생 상태에서는 SVG 재생 아이콘으로 전환됩니다.
+- 구청장 인물 이미지 하단과 슬로건 카드 상단이 맞닿습니다. 슬로건 원본은 `assets/mayor-slogan.svg`입니다.
+- 푸터는 원본의 `footer-info`, `footer-logo`, `address-wrap`, `address-map`, `util` 구조와 CSS를 사용합니다. 주소·콜센터 정보는 `index.html`의 `footer`에서 수정합니다. 현재 연락처는 준비 중이며, 접근성 배지는 이용 안내 링크입니다.
