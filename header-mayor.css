@@ -78,3 +78,7 @@ header #zoom-menu a.zoom-reset{justify-content:center;gap:4px}
 
 /* District slogan frame. */
 #mayor-slogan{border-radius:20px;border:1px solid #FFF;box-sizing:border-box}
+
+/* Align search, login and all-menu controls on one vertical center. */
+header .header-middle .etc-menu{align-items:center}
+@media(min-width:1024px){header .header-middle .etc-menu>li{display:flex;align-items:center}header .header-middle .etc-menu .header-search:not([hidden]){align-items:center}}
