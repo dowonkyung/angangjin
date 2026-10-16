@@ -4,6 +4,12 @@
  function hrefFor(a){if(routes[a.dataset.page])return routes[a.dataset.page];const article=a.dataset.article;if(article){const split=article.lastIndexOf(':'),name=article.slice(0,split);if(routes[name])return routes[name]+'?id=sample-'+(Number(article.slice(split+1))+1)}return null}
  document.querySelectorAll('[data-page],[data-article]').forEach(a=>{const href=hrefFor(a);if(href&&a.tagName==='A')a.href=href});
  document.addEventListener('click',e=>{const a=e.target.closest('[data-page],[data-article]');if(!a||a.hasAttribute('aria-expanded'))return;const href=hrefFor(a);if(!href)return;e.preventDefault();e.stopImmediatePropagation();if(e.ctrlKey||e.metaKey)window.open(href,'_blank','noopener');else location.href=href},true);
+
+ // Keep the current municipal page selected independently of an opened menu.
+ const pageFile=(location.pathname.split('/').pop()||'index.html').replace(/-(write|preview)\.html$/,'.html');
+ const currentLeaf=[...document.querySelectorAll('#gnb a[data-page]')].find(a=>!a.closest('.tit')&&routes[a.dataset.page]===pageFile);
+ if(currentLeaf){const top=currentLeaf.closest('#gnb>ul>li'),item=currentLeaf.closest('.gnb-wrap .wrap>ul>li');currentLeaf.setAttribute('aria-current','page');top.classList.add('current-section');item.classList.add('current-item');function selectCurrent(){[...item.parentElement.children].forEach(row=>{row.classList.toggle('active',row===item);if(row.querySelector('.depth3-wrap'))row.firstElementChild.setAttribute('aria-expanded',String(row===item));else row.firstElementChild.removeAttribute('aria-expanded')})}top.firstElementChild.addEventListener('click',selectCurrent);selectCurrent();}
+
  const config=window.ANGANGJIN_BOARD_CONFIG,panel=document.querySelector('#news-list');
  if(document.body.classList.contains('board-page')||!panel||!config?.supabaseUrl||!config?.publishableKey)return;
  const types={'고시 공고':'notice','입찰 공고':'bid','입법 예고':'legislation','일반 공고':'general'},cache=new Map();
