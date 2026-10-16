@@ -16,3 +16,6 @@ header .header-bottom.all-open{display:block}header .header-bottom.all-open #gnb
 /* Center each mayor menu icon and label as a single group. */
 .mayor-section .top .mayor-info ul li a{display:flex;align-items:center;justify-content:center;gap:4px;padding-left:8px;padding-right:8px;text-align:center;height:100%}
 .mayor-section .top .mayor-info ul li a::before{flex-shrink:0;margin-right:0;background-position:center}
+
+/* Direct links have no expandable-submenu arrow. */
+header .gnb-wrap.type-depth3 .wrap>ul>li>a:not([aria-expanded])::before{display:none;background:none}

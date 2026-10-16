@@ -170,3 +170,6 @@ footer .footer-info .util p{
     margin-top: 90px;
   }
 }
+
+/* Both address labels use the call-center label's text width plus its padding. */
+footer .footer-info .address-wrap .address p>span:first-child{box-sizing:content-box;min-width:0;width:6em;flex:0 0 6em;padding-left:10px;padding-right:10px;white-space:nowrap}
