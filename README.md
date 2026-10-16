@@ -30,3 +30,12 @@
 - Pretendard GOV: 원본에서 사용한 파일을 포함합니다. `assets/fonts/LICENSE.txt` 참조.
 - Swiper: 제공받은 성남시청 저장본과 동일한 배포 파일. 소스 헤더의 MIT 라이선스 고지를 보존했습니다.
 - 바로가기 아이콘: 디자인 참조용 성남시청 원본 자산의 강조색을 안강진구 상징색으로 수정했습니다.
+
+## 상단 바와 구청장 섹션
+
+- 상단은 원본의 `header-top`, `header-middle`(`top-menu`, `bottom-menu`, `logo`, `etc-menu`), `header-bottom`(`mobile-top`, `gnb`, `gnb-wrap type-depth3`) 구조를 사용합니다. 날씨와 AI 검색은 제외했습니다.
+- 원본 CSS 규칙과 반응형 규칙은 `reference-layout.css`, 기관명·메뉴 개수 및 독립 페이지에 필요한 조정은 `header-mayor.css`에 있습니다.
+- 구청장 섹션 순서: 메인 배너/생활서비스 → `mayor-section section` → 소식. 기존 `intro inner`는 제거했습니다.
+- `site-content.js`의 `name`, `greeting`, `portrait`, `slogan`, `sloganAlt`, `banners`를 수정하면 구청장 이름, 인사말, 인물 이미지, 슬로건, 우측 소식 이미지를 바꿀 수 있습니다. 현재 인물은 가상의 한도윤이며 SVG 인물 이미지는 임시 삽화입니다.
+- 원본 구청장 섹션의 배경 사진은 디자인 참조용 임시 자산입니다. 배경 파일은 `assets/reference/mayor_bg.png`, `mayor_bg1.png`, `mayor_bg_t.png`, `mayor_bg_m.png`에서 교체할 수 있습니다.
+- 로그인·기관 사이트·다국어는 화면 안내만 제공하며 실제 인증·번역 서비스를 호출하지 않습니다.

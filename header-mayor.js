@@ -1,0 +1,40 @@
+const navList=document.querySelector('#gnb>ul');
+for(const [name,groups] of Object.entries(menu)){
+ const li=document.createElement('li'),a=document.createElement('a');a.href='#none';a.textContent=name;a.setAttribute('aria-expanded','false');a.title='하위 메뉴 열기';
+ const panel=document.createElement('div');panel.className='gnb-wrap type-depth3';panel.id='gnb-panel-'+navList.children.length;a.setAttribute('aria-controls',panel.id);
+ const inner=document.createElement('div');inner.className='inner';const wrap=document.createElement('div');wrap.className='wrap';const ul=document.createElement('ul');
+ for(const [title,children] of Object.entries(groups)){
+  const item=document.createElement('li'),link=document.createElement('a');link.href='#none';link.textContent=title;link.dataset.page=title;item.append(link);
+  if(children.length){delete link.dataset.page;link.setAttribute('aria-expanded','false');const depth=document.createElement('div');depth.className='depth3-wrap';const list=document.createElement('ul');for(const child of children){const row=document.createElement('li'),childLink=document.createElement('a');childLink.href='#none';childLink.textContent=child;childLink.dataset.page=child;row.append(childLink);list.append(row)}const titleBlock=document.createElement('div');titleBlock.className='tit';const titleLink=document.createElement('a');titleLink.href='#none';titleLink.dataset.page=title;titleLink.append(document.createTextNode(title));const hint=document.createElement('span');hint.textContent='바로가기';titleLink.append(hint);titleBlock.append(titleLink);depth.append(titleBlock,list);item.append(depth);const select=()=>{[...ul.children].forEach(row=>{row.classList.remove('active');row.firstElementChild.setAttribute('aria-expanded','false')});item.classList.add('active');link.setAttribute('aria-expanded','true')};link.onclick=e=>{e.preventDefault();select()};item.onmouseenter=()=>{if(matchMedia('(min-width:1024px)').matches)select()};if(ul.children.length===0){item.classList.add('active');link.setAttribute('aria-expanded','true')}}ul.append(item);
+ }
+ wrap.append(ul);inner.append(wrap);panel.append(inner);li.append(a,panel);navList.append(li);
+ a.onclick=e=>{e.preventDefault();const active=li.classList.contains('active')&&matchMedia('(max-width:1023px)').matches;closeGnb();li.classList.toggle('active',!active);a.setAttribute('aria-expanded',String(!active))};
+ li.addEventListener('mouseenter',()=>{if(matchMedia('(min-width:1024px)').matches&&!document.querySelector('.header-bottom').classList.contains('all-open')){closeGnb();li.classList.add('active');a.setAttribute('aria-expanded','true')}});
+}
+function closeGnb(){document.querySelectorAll('#gnb>ul>li').forEach(li=>{li.classList.remove('active');li.firstElementChild.setAttribute('aria-expanded','false')})}
+const bottom=document.querySelector('.header-bottom'),all=document.querySelector('#menuAll');
+all.onclick=e=>{e.preventDefault();const open=!bottom.classList.contains('all-open');closeGnb();bottom.classList.toggle('all-open',open);all.setAttribute('aria-expanded',String(open));if(open&&matchMedia('(max-width:1023px)').matches)navList.firstElementChild.firstElementChild.click()};
+function closeAll(){bottom.classList.remove('all-open');all.setAttribute('aria-expanded','false');closeGnb()}
+document.querySelector('.mobile-close a').onclick=e=>{e.preventDefault();closeAll();all.focus()};
+document.querySelector('.header-bottom').addEventListener('mouseleave',()=>{if(matchMedia('(min-width:1024px)').matches&&!bottom.classList.contains('all-open'))closeGnb()});
+const toggles=document.querySelectorAll('.top-menu .button-bottom,.total-search');
+toggles.forEach(a=>a.onclick=e=>{e.preventDefault();const open=a.getAttribute('aria-expanded')!=='true';closeDropdowns();a.setAttribute('aria-expanded',String(open));document.getElementById(a.getAttribute('aria-controls')).hidden=!open;if(a.classList.contains('total-search')&&open)document.querySelector('#applyTotalSearchTop').focus()});
+function closeDropdowns(){toggles.forEach(a=>{a.setAttribute('aria-expanded','false');document.getElementById(a.getAttribute('aria-controls')).hidden=true})}
+document.addEventListener('click',e=>{if(!e.target.closest('header')){closeAll();closeDropdowns()}if(e.target.closest('a[href="#none"]'))e.preventDefault()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAll();closeDropdowns();all.focus()}});
+document.querySelectorAll('[data-zoom]').forEach(a=>a.onclick=e=>{e.preventDefault();document.body.style.zoom=a.dataset.zoom;document.querySelectorAll('[data-zoom]').forEach(z=>z.classList.toggle('active',z===a));closeDropdowns()});
+function headerSearch(){document.querySelector('#query').value=document.querySelector('#applyTotalSearchTop').value;closeDropdowns();document.querySelector('#search').requestSubmit()}
+document.querySelector('.header-search-btn').onclick=e=>{e.preventDefault();headerSearch()};document.querySelector('#applyTotalSearchTop').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();headerSearch()}};
+const mayor=window.ANGANGJIN_MAYOR,section=document.querySelector('.mayor-section');
+document.querySelector('#mayor-heading').textContent=`안강진구청장 ${mayor.name}입니다.`;
+const greeting=document.querySelector('#mayor-greeting');mayor.greeting.forEach((line,i)=>{if(i)greeting.append(document.createElement('br'));greeting.append(document.createTextNode(line))});
+document.querySelector('#mayor-office').textContent=mayor.name+' 구청장실';
+section.style.setProperty('--mayor-portrait',`url("${mayor.portrait}")`);
+document.querySelector('#mayor-slogan').src=mayor.slogan;document.querySelector('#mayor-slogan').alt=mayor.sloganAlt;
+for(const item of mayor.banners){const slide=document.createElement('div');slide.className='swiper-slide';const a=document.createElement('a');a.href=item.href||'#none';if(!item.href)a.dataset.page=item.page||'구청장 소식';const img=document.createElement('img');img.src=item.src;img.alt=item.alt;img.width=529;img.height=300;img.loading='lazy';a.append(img);slide.append(a);document.querySelector('#mayor-slides').append(slide)}
+const mayorSlider=new Swiper('.mayor-banner .mySwiper',{loop:mayor.banners.length>1,speed:reducedMotion.matches?0:500,autoplay:reducedMotion.matches?false:{delay:5000,disableOnInteraction:false},navigation:{prevEl:'.mayor-banner .swiper-button-prev',nextEl:'.mayor-banner .swiper-button-next'},pagination:{el:'.mayor-banner .swiper-pagination',type:'fraction'},a11y:{prevSlideMessage:'구청장 소식 이전 배너',nextSlideMessage:'구청장 소식 다음 배너'}});
+const mayorPause=document.querySelector('.mayor-banner .auto-control');let mayorStopped=reducedMotion.matches;
+function updateMayorPause(){mayorPause.classList.toggle('stop',!mayorStopped);mayorPause.classList.toggle('play',mayorStopped);mayorPause.setAttribute('aria-label','구청장 소식 자동 전환 '+(mayorStopped?'시작':'정지'));mayorPause.firstElementChild.textContent=mayorStopped?'재생':'정지'}
+mayorPause.onclick=()=>{mayorStopped=!mayorStopped;if(mayorStopped)mayorSlider.autoplay.stop();else mayorSlider.autoplay.start();updateMayorPause()};updateMayorPause();
+section.querySelector('.mayor-banner').addEventListener('focusin',()=>mayorSlider.autoplay.stop());section.querySelector('.mayor-banner').addEventListener('focusout',e=>{if(!e.currentTarget.contains(e.relatedTarget)&&!mayorStopped)mayorSlider.autoplay.start()});
+reducedMotion.addEventListener('change',e=>{mayorSlider.params.speed=e.matches?0:500;if(e.matches){mayorStopped=true;mayorSlider.autoplay.stop();updateMayorPause()}});
