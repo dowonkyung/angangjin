@@ -212,3 +212,6 @@
 .profile{line-height:1.5}.profile .profile__photo img{display:block;width:100%;height:100%;object-fit:contain;object-position:bottom}.office-detail .profile .profile__greeting{font-size:32px;line-height:1.5;margin:0 0 16px;color:#102d36}.profile .profile__info{color:#102d36}.profile .profile__edu-list li::after{background:#102d36}.profile .profile__edu-title{margin-top:0}.profile .profile__career{margin-top:48px}.profile .profile__career-title{font-size:24px;font-weight:700;margin:0 0 24px}.profile .profile__career-list li{font-size:17px;word-break:keep-all;overflow-wrap:anywhere}.profile .profile__banner{margin-top:54px}.profile .profile__edu-list li{word-break:keep-all;overflow-wrap:anywhere}
 @media(max-width:63.99em){.office-detail .profile .profile__greeting{font-size:24px}}
 @media(max-width:47.99em){.profile .profile__career-list li{font-size:14px}.profile .profile__career-title{font-size:20px}.profile .profile__banner{margin-top:0}}
+
+/* Profile banner copy and career reading order. */
+.office-detail .profile .profile__greeting,.profile .profile__info,.profile .profile__edu-title,.profile .profile__edu-list li{color:#fff}.profile .profile__edu-list li::after{background:#fff}.profile .profile__career-list{display:flex;flex-direction:column;gap:8px}.profile .profile__career-list li{flex:0 0 auto;width:100%}

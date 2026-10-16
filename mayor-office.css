@@ -12,3 +12,5 @@
 @media(max-width:1023px){.office-page header .header-middle .bottom-menu .logo h1 a{width:300px;height:43px}}
 @media(max-width:767px){.office-page header .header-middle .bottom-menu .logo h1 a{width:200px;height:43px}}
 @media(max-width:359px){.office-page header .header-middle .bottom-menu .logo h1 a{width:170px}}
+
+.office-detail .breadcrumb>a{text-decoration:underline;text-underline-offset:3px}.office-council-home{white-space:nowrap}
