@@ -29,3 +29,6 @@ header .header-search-close{position:absolute;top:20px;right:24px;width:32px;hei
 @media(min-width:1024px){header .etc-menu .total-search{display:none!important}header .header-search:not([hidden]){display:flex;margin-right:0;width:285px;gap:8px;padding:5px 6px 5px 14px;height:40px}header .header-search input{display:block;flex:1;min-width:0;width:auto;height:30px;min-height:0;border:0;background:transparent;padding:0;font-size:15px;outline:none}header .header-search:focus-within{box-shadow:inset 0 0 0 2px #111}header .header-search .header-search-btn{display:block;flex:0 0 30px}header .header-search-close{display:none}}
 @media(max-width:1023px){header .header-search p{margin:0 0 16px}header .header-search .header-search-btn{display:block}header .header-search-close{display:block}}
 @media(min-width:1024px){header .etc-menu .header-search input{height:30px;min-height:0;border:0;border-radius:0;background:transparent;padding:0;font-size:15px}}
+
+/* Keep the detail side white even before a submenu has been selected. */
+@media(min-width:1024px){header .gnb-wrap.type-depth3 .inner{background-color:#fff}header .gnb-wrap.type-depth3 .wrap{background:linear-gradient(to right,#eef2f7 0,#eef2f7 266px,#fff 266px,#fff 100%)}}
