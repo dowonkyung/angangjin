@@ -72,3 +72,9 @@ window.ANGANGJIN_BOARD_CONFIG = {
 공식 참고: [Supabase RLS](https://supabase.com/docs/guides/database/postgres/row-level-security), [Storage 접근 제어](https://supabase.com/docs/guides/storage/security/access-control), [hwp.js](https://github.com/hahnlee/hwp.js).
 
 PDF 바로보기는 PDF.js 6.4.299로 렌더링하며 페이지 이동·확대·축소를 제공합니다. 라이브러리·워커는 저장소에 포함되어 있고, 필요 시 표준 폰트·문자맵·디코더 리소스만 고정 버전 jsDelivr에서 받습니다. 문서 내용은 외부 문서 변환 서비스에 업로드하지 않습니다.
+
+## 게시글 수정·삭제
+
+관리자로 로그인한 뒤 게시글 상세 하단의 **수정 / 삭제**를 사용합니다. 수정은 기존 주소·등록일·조회수를 유지하고 제목·작성부서·본문·첨부파일을 변경합니다. 기존 첨부파일은 그대로 유지되며 삭제 후 새 파일을 추가해 교체할 수 있습니다. 기존 파일의 미리보기 PDF를 바꾸려면 해당 첨부파일을 삭제하고 원본과 PDF를 다시 추가합니다. 수정 중 임시저장도 지원합니다. 여러 관리자가 같은 글을 동시에 수정하면 마지막으로 저장한 내용이 반영되므로 동시 편집을 피하세요.
+
+삭제 확인 창에서 **삭제**를 눌러야 실제 삭제됩니다. 게시글을 먼저 삭제하고 관련 저장소 파일을 정리합니다. 저장소 정리에 실패하면 안내 메시지가 표시됩니다. 기존 SQL의 관리자 UPDATE/DELETE 정책을 사용하므로 SQL을 다시 실행할 필요는 없습니다.

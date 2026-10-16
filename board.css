@@ -16,3 +16,11 @@ body.board-page .board-wrap .board-search select.select-control{background:#fff 
 @media(max-width:767px){body.board-page .board-search .form-wrap.flex1{display:flex;flex-wrap:nowrap}body.board-page .board-search .form-wrap.flex1 input{width:auto;min-width:0;flex:1}body.board-page .board-search .form-wrap.flex1 .btn-normal{width:auto;flex:0 0 auto;min-width:64px}.board-page .board-option{justify-content:flex-start}.board-page .board-table-head .board-option{width:100%}}
 
 body.board-page select{background-image:url("assets/reference/ico_arrow_bottom.svg");background-repeat:no-repeat;background-position:right 12px center;background-size:16px}
+
+/* Breadcrumb separators and unbroken neighboring-post labels. */
+.content-head .breadcrumb ul li+li::before{content:"";display:block;width:16px;height:16px;left:-20px;top:50%;transform:translateY(-50%);background:url('assets/board/breadcrumb-arrow.svg') no-repeat center/16px}
+.board-view-foot .board-list dl{align-items:center}
+.board-view-foot .board-list dl dt{flex:0 0 60px;width:60px;min-width:60px;white-space:nowrap;word-break:keep-all;overflow-wrap:normal}
+.board-view-foot .board-list dl dd{flex:1;min-width:0}
+.board-view-foot [data-admin-action][hidden]{display:none!important}
+.delete-post-dialog{max-width:480px;line-height:1.7}
