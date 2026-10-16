@@ -1,19 +1,86 @@
-// 배너·갤러리 사진과 본문은 이 파일에서 교체할 수 있습니다.
+// 열린구청장실 메뉴와 사진·본문 설정입니다.
 window.ANGANGJIN_NAV_MENU={
- '송은석입니다':{'인사말':[],'프로필':[],'취임사':[]},
- '구정24시':{'구정갤러리':['포토갤러리','영상갤러리'],'구정뉴스':[],'언론기사':[]},
- '공약과 실천':{'공약실천':['공약관리'],'매니페스토':['선거공약']}
+  "송은석입니다": {
+    "인사말": [],
+    "프로필": [],
+    "취임사": []
+  },
+  "구정24시": {
+    "구정갤러리": [
+      "포토갤러리",
+      "영상갤러리"
+    ],
+    "구정뉴스": [],
+    "언론기사": []
+  },
+  "공약과 실천": {
+    "공약실천": [
+      "공약관리"
+    ],
+    "매니페스토": [
+      "선거공약"
+    ]
+  }
 };
 window.ANGANGJIN_OFFICE={
- name:'송은석',portrait:'assets/mayors/song-eunseok.png',
- banners:[
-  {image:'assets/mayors/song-eunseok.png',title:'안강진구청장 송은석입니다.',position:'center 32%',page:'greeting'},
-  {image:'assets/banners/banner-01.svg',title:'안강진의 새로운 소식을 전합니다.',page:'news'},
-  {image:'assets/banners/banner-02.svg',title:'구민의 목소리를 듣겠습니다.',href:'civil.html'}
- ],
- greeting:['구민과 함께! 새로운 안강진!','더 깊이 듣고, 더 넓게 품으며','구민 여러분과 늘 함께하겠습니다.'],
- profile:[['성명','송은석 宋恩奭'],['대수','초대 (민선1기)'],['재임기간','2026. 10. 8. ~ 재임중'],['현직','안강진구청장']],
- // 제공할 취임사와 공약 내용이 생기면 아래 배열에 문단별로 입력하세요.
- inaugural:[],promise:[],election:[],manifesto:[],
- gallery:[{type:'photo',image:'assets/mayors/song-eunseok.png',title:'송은석 안강진구청장',page:'profile'}]
+  "name": "송은석",
+  "portrait": "assets/mayors/song-eunseok.png",
+  "banners": [
+    {
+      "image": "assets/mayors/song-eunseok.png",
+      "title": "안강진구청장 송은석입니다.",
+      "position": "center 32%",
+      "page": "greeting"
+    },
+    {
+      "image": "assets/banners/banner-01.svg",
+      "title": "안강진의 새로운 소식을 전합니다.",
+      "page": "news"
+    },
+    {
+      "image": "assets/banners/banner-02.svg",
+      "title": "구민의 목소리를 듣겠습니다.",
+      "href": "civil.html"
+    }
+  ],
+  "greeting": [
+    "우리는 위대한 도원경장군님의 현명한 령도밑에\n온 사회의 삼잘주의화를 지상목표로 내세우고 줄기차게 투쟁하여왔습니다.\n앞으로도 온 사회를 삼잘주의화하기 위한 투쟁을 더욱 힘차게 벌려나가야 합니다.",
+    "저는 잘먹고 잘살고 잘먹고사는 안강진 건설,\n《한빛》놈들에게 유린당한 국토 회복 등으로\n안강진 도원경주의화 시대를 활짝 열겠습니다.",
+    "오직 도원경장군님만 바라보겠습니다.\n‘안강진구민’이라는 이름이 장군님 최고의 자부심이 되도록 만들겠습니다."
+  ],
+  "profile": [
+    [
+      "성명",
+      "송은석 宋恩奭"
+    ],
+    [
+      "대수",
+      "초대 (민선1기)"
+    ],
+    [
+      "재임기간",
+      "2026. 10. 8. ~ 재임중"
+    ],
+    [
+      "현직",
+      "안강진구청장"
+    ]
+  ],
+  "inaugural": [],
+  "promise": [],
+  "election": [],
+  "manifesto": [],
+  "gallery": [
+    {
+      "type": "photo",
+      "image": "assets/mayors/song-eunseok.png",
+      "title": "송은석 안강진구청장",
+      "page": "profile"
+    }
+  ],
+  "greetingTitle": "안강진구청장 송은석입니다.",
+  "greetingSubtitle": "존경하고 사랑하는 안강진구민 동지들!",
+  "greetingPortrait": "assets/mayors/greeting-eunseo.png",
+  "greetingDate": "2026년 10월 8일",
+  "greetingSign": "송 은 석"
 };
