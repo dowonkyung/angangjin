@@ -12,14 +12,8 @@
  const status=$('#connection-status');
  status.textContent=store.configured?'':'게시판 저장소 연결 전입니다. 아래 목록은 디자인 확인용 예시이며, 작성한 글은 이 기기에만 임시저장할 수 있습니다.';
  if(!store.configured){const guide=document.createElement('a');guide.href='BOARD_SETUP.md';guide.textContent='서버 연결 안내';status.append(' ',guide)}else status.hidden=true;
- async function refreshAuth(){try{auth=await store.auth();$('#auth-state').textContent=auth.admin?'관리자 로그인됨':auth.user?'읽기 전용 계정 · 작성 권한 없음':'';$('#admin-login').hidden=Boolean(auth.user);$('#admin-logout').hidden=!auth.user;if($('#publish')){$('#publish').disabled=!auth.admin;$('#publish').title=auth.admin?'':store.configured?'관리자 로그인이 필요합니다.':'게시판 저장소 연결 후 사용할 수 있습니다.'}}catch(e){toast(errorMessage(e))}}
- $('#admin-login').onclick=()=>{if(!store.configured){toast('먼저 BOARD_SETUP.md에 따라 저장소를 연결해 주세요.');return}$('#login-error').textContent='';$('#login-dialog').showModal();$('#admin-email').focus()};
- $('#cancel-login').onclick=()=>$('#login-dialog').close();
- $('#login-form').onsubmit=async e=>{e.preventDefault();const b=e.submitter;b.disabled=true;try{const result=await store.client.auth.signInWithPassword({email:$('#admin-email').value.trim(),password:$('#admin-password').value});if(result.error)throw result.error;$('#admin-password').value='';await refreshAuth();if(!auth.admin)throw Error('이 계정에는 게시판 작성 권한이 없습니다. 관리자 등록을 확인해 주세요.');$('#login-dialog').close();toast('관리자로 로그인했습니다.')}catch(err){$('#login-error').textContent=errorMessage(err)}finally{b.disabled=false}};
- $('#admin-logout').onclick=async()=>{const r=await store.client.auth.signOut();if(r.error){toast(errorMessage(r.error));return}await refreshAuth();toast('로그아웃했습니다.')};
- await refreshAuth();
- document.querySelectorAll('[data-page="로그인"]').forEach(a=>{delete a.dataset.page;a.onclick=e=>{e.preventDefault();$('#admin-login').click()}});
- if(new URLSearchParams(location.search).get('login')==='1')$('#admin-login').click();
+ function syncAuth(){auth=window.HeaderAuth.state;$('#auth-state').textContent='';if($('#publish')){$('#publish').disabled=!auth.admin;$('#publish').title=auth.admin?'':'상단 로그인 메뉴에서 관리자로 로그인해 주세요.'}}
+ window.addEventListener('header-auth-change',syncAuth);await window.HeaderAuth.ready;syncAuth();
  try{if(await store.loadDraft())$('#restore-draft').hidden=false}catch{toast('이 브라우저에서는 임시저장 공간에 접근하지 못했습니다.')}
  const params=new URLSearchParams(location.search);
  async function renderArticle(id){
