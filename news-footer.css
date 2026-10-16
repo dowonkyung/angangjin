@@ -20,3 +20,5 @@ body .slide-control .swiper-pagination.swiper-pagination-fraction{width:60px;min
 .notice-list .tab.type4 #tabs button{box-sizing:border-box;padding:5px 8px 12px;border:0;border-bottom:3px solid transparent;line-height:1.5;font-weight:700;align-self:stretch;transform:none}
 .notice-list .tab.type4 #tabs button[aria-selected=true]{border-bottom-color:#2a5caa}
 .notice-list .tit .more-btn svg{display:block;width:24px;height:24px}
+
+@media only screen and (max-width:63.99em){.mayor-section .mayor-service3{margin-top:17px!important;width:100%;min-width:0;overflow:hidden;display:flex;justify-content:center}.mayor-section .mayor-service3 img{width:auto;max-width:none;height:auto;min-height:0;flex:0 0 auto;margin:0}}
