@@ -10,8 +10,32 @@ const posts={'새소식':['안강진구청 홈페이지에 오신 것을 환영�
 Object.keys(posts).forEach((n,i)=>{const b=document.createElement('button');b.textContent=n;b.id='tab-'+i;b.setAttribute('role','tab');b.setAttribute('aria-controls','news-list');b.onclick=()=>renderNews(n);$('#tabs').append(b)});
 function renderNews(n){document.querySelectorAll('#tabs button').forEach(b=>{const active=b.textContent===n;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1});$('#news-list').setAttribute('aria-labelledby',[...$('#tabs').children].find(b=>b.textContent===n).id);$('#news-list').innerHTML=posts[n].map((title,i)=>`<button class="news-row" data-article="${n}:${i}"><small>예시</small><span>${title}</span><time datetime="2026-10-16">2026.10.16</time></button>`).join('')}
 $('#tabs').addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(e.key))return;e.preventDefault();const tabs=[...$('#tabs').children];let i=tabs.indexOf(document.activeElement);i=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[i].click();tabs[i].focus()});renderNews('새소식');
-const slides=[['구민의 일상에, 더 가까이','안강진의 새로운 소식,','함께 나누는 이야기','생활에 꼭 필요한 구정 소식과 다양한 혜택을<br>안강진구청에서 만나보세요.','새소식','#f9eff6'],['구민의 생각이 정책이 됩니다','당신의 작은 제안이,','안강진의 큰 변화로','구민 여러분의 소중한 의견에 귀 기울입니다.<br>더 나은 안강진을 함께 만들어 주세요.','민원/제안/신고','#edf4f4'],['알고 싶은 안강진의 모든 것','살기 좋은 우리 동네,','반갑습니다 안강진','안강진의 역사부터 청사 안내까지,<br>우리 구의 다양한 이야기를 만나보세요.','안강진구 소개','#f7f2e7']];let slide=0,timer=null;function showSlide(i){slide=(i+slides.length)%slides.length;const s=slides[slide];$('#banner .eyebrow').textContent=s[0];$('#banner h1').innerHTML=`${s[1]}<br><strong>${s[2]}</strong>`;$('#banner p').innerHTML=s[3];$('#banner .banner-link').dataset.page=s[4];$('#banner .banner-link').innerHTML=s[4]+' 바로가기 <span>→</span>';$('#banner').style.background=s[5];$('#slide-number').textContent=String(slide+1).padStart(2,'0')}
-$('#prev').onclick=()=>showSlide(slide-1);$('#next').onclick=()=>showSlide(slide+1);function autoplay(){timer=setInterval(()=>showSlide(slide+1),6500)}$('#pause').onclick=()=>{if(timer){clearInterval(timer);timer=null;$('#pause').textContent='▷';$('#pause').setAttribute('aria-label','배너 자동 전환 시작')}else{autoplay();$('#pause').textContent='Ⅱ';$('#pause').setAttribute('aria-label','배너 자동 전환 정지')}};if(!matchMedia('(prefers-reduced-motion: reduce)').matches)autoplay();else{$('#pause').textContent='▷';$('#pause').setAttribute('aria-label','배너 자동 전환 시작')}
+const banners=window.ANGANGJIN_BANNERS;
+const track=$('#banner-slides');
+for(const [index,item] of banners.entries()){
+  const slide=document.createElement('div');slide.className='swiper-slide';
+  const link=document.createElement(item.href?'a':'button');
+  if(item.href)link.href=item.href;else link.dataset.page=item.page||'새소식';
+  const image=document.createElement('img');image.src=item.src;image.alt=item.alt;
+  image.width=844;image.height=440;image.decoding='async';image.loading=index===0?'eager':'lazy';
+  link.append(image);slide.append(link);track.append(slide);
+}
+$('#slide-total').textContent=banners.length;
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+const slider=new Swiper('#banner',{
+  loop:banners.length>1,speed:reducedMotion.matches?0:500,
+  autoplay:reducedMotion.matches?false:{delay:5000,disableOnInteraction:false},
+  navigation:{nextEl:'#next',prevEl:'#prev'},
+  a11y:{enabled:true,prevSlideMessage:'이전 배너',nextSlideMessage:'다음 배너',slideLabelMessage:'{{index}} / {{slidesLength}}'},
+  on:{slideChange(swiper){$('#slide-number').textContent=swiper.realIndex+1}}
+});
+let stopped=reducedMotion.matches;
+function updatePause(){ $('#pause').textContent=stopped?'▷':'Ⅱ';$('#pause').setAttribute('aria-label',stopped?'배너 자동 전환 시작':'배너 자동 전환 정지');$('#pause').setAttribute('aria-pressed',String(stopped)); }
+$('#pause').onclick=()=>{stopped=!stopped;if(stopped)slider.autoplay.stop();else slider.autoplay.start();updatePause()};
+$('#banner').addEventListener('focusin',()=>slider.autoplay.stop());
+$('#banner').addEventListener('focusout',e=>{if(!e.currentTarget.contains(e.relatedTarget)&&!stopped)slider.autoplay.start()});
+reducedMotion.addEventListener('change',e=>{slider.params.speed=e.matches?0:500;if(e.matches){stopped=true;slider.autoplay.stop();updatePause()}});
+updatePause();
 function detail(title,text){$('#detail-title').textContent=title;$('#detail-body').replaceChildren();const p=document.createElement('p');p.textContent=text;$('#detail-body').append(p);if(!$('#detail').open)$('#detail').showModal()}
 document.addEventListener('click',e=>{const p=e.target.closest('[data-page]');if(p)detail(p.dataset.page,`${p.dataset.page} 메뉴입니다. 현재는 메인화면 시안으로, 해당 메뉴의 상세 페이지와 실제 서비스는 추후 연결될 예정입니다.`);const a=e.target.closest('[data-article]');if(a){const [cat,i]=a.dataset.article.split(':');detail(posts[cat][i],'이 게시물은 홈페이지의 화면 구성을 보여주기 위한 예시입니다. 실제 공고나 시행 중인 정책이 아닙니다.')}const k=e.target.closest('[data-search]');if(k){$('#query').value=k.dataset.search;$('#search').requestSubmit()}});$('#close-detail').onclick=()=>$('#detail').close();$('#detail').onclick=e=>{if(e.target===$('#detail')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close()}};
 $('#search').onsubmit=e=>{e.preventDefault();const q=$('#query').value.trim();if(!q){$('#query').focus();return}const names=[...new Set([...Object.values(menu).flatMap(x=>Object.entries(x).flatMap(([k,v])=>[k,...v])),...Object.values(posts).flat()])];const matches=names.filter(n=>n.includes(q));detail('통합검색',`“${q}” 검색 결과 ${matches.length}건 · 현재 메인화면의 메뉴와 예시 소식에서 검색합니다.`);matches.forEach(n=>{const b=document.createElement('button');b.className='news-row';b.textContent=n;b.onclick=()=>detail(n,'메인화면 시안의 검색 결과입니다. 상세 페이지는 추후 연결될 예정입니다.');$('#detail-body').append(b)})};let large=false;$('#zoom').onclick=()=>{large=!large;document.body.style.zoom=large?'1.1':'1';$('#zoom').textContent=large?'화면크기 −':'화면크기 ＋'};
