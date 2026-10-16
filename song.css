@@ -8,7 +8,7 @@
 .song-page .citySong .btn-wrap i{display:inline-flex;align-items:center;line-height:0}
 .song-page .citySong .btn-wrap img{width:16px;height:16px}
 .song-page .img-line{border-radius:12px;border:1px solid #b1b8be;padding:27px;text-align:center;margin-top:20px;position:relative}
-.song-page .img-line>img{display:block;width:auto;max-width:100%;height:auto;margin:0 auto}
+.song-page .img-line>img{display:block;width:100%;max-width:600px;height:auto;margin:0 auto}
 .song-page .img-line .img-more{display:none}
 .song-page .audio-help{font-size:15px;line-height:1.6;color:#464c53;margin-top:12px}
 @media only screen and (max-width:47.99em){
