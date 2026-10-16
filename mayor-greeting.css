@@ -205,3 +205,6 @@
 
 
 .greeting .greeting__title,.greeting .greeting__subtitle{margin-top:0;color:#1e2124}.greeting .greeting__text p{white-space:normal}.greeting .leader-name{font-size:1.08em;font-weight:700}.greeting .greeting__photo img{display:block;width:100%;height:100%;object-fit:contain;object-position:right bottom}.greeting .footer-text .greeting__signature{display:flex;align-items:center;font-size:28px;font-weight:700;white-space:nowrap}.office-control-row #office-next,.office-control-row #office-prev{display:grid;place-items:center;background:#fff;border-radius:50%;width:36px;height:36px;flex:none}.office-control-row #office-prev svg{transform:rotate(180deg)}.office-control-row #office-next svg,.office-control-row #office-prev svg{display:block;width:24px;height:24px}
+
+/* Match the main header content width on the greeting page. */
+.office-main .office-detail.inner:has(.greeting){max-width:1400px}
