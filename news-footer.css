@@ -22,3 +22,6 @@ body .slide-control .swiper-pagination.swiper-pagination-fraction{width:60px;min
 .notice-list .tit .more-btn svg{display:block;width:24px;height:24px}
 
 @media only screen and (max-width:63.99em){.mayor-section .mayor-service3{margin-top:17px!important;width:100%;min-width:0;overflow:hidden;display:flex;justify-content:center}.mayor-section .mayor-service3 img{width:auto;max-width:none;height:auto;min-height:0;flex:0 0 auto;margin:0}}
+
+.slide-arrows button svg{display:block;width:24px;height:24px}.slide-arrows #prev svg{transform:rotate(180deg)}
+@media only screen and (max-width:63.99em){.mayor-section .mayor-slogan-frame{width:100%;min-width:0;overflow:hidden;border:1px solid #FFF;border-radius:20px;box-sizing:border-box}.mayor-section .mayor-slogan-frame #mayor-slogan{display:block;width:100%;max-width:100%;height:auto;min-height:0;margin:0;border:0;border-radius:0;object-fit:contain}}
