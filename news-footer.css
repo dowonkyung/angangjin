@@ -15,3 +15,8 @@ footer .footer-info .address-wrap{margin-top:0}footer .footer-info .address-wrap
 body .slide-control .swiper-pagination.swiper-pagination-fraction{width:60px;min-width:60px;flex:0 0 60px;display:flex;align-items:center;justify-content:center;gap:3px;white-space:nowrap}
 .slide-status .pagination{width:60px;min-width:60px;flex:0 0 60px;justify-content:center}
 @media(max-width:767px){.mayor-section .top .mayor-banner{margin-bottom:24px}}
+
+/* Reserve the active underline and keep labels in the same box in every state. */
+.notice-list .tab.type4 #tabs button{box-sizing:border-box;padding:5px 8px 12px;border:0;border-bottom:3px solid transparent;line-height:1.5;font-weight:700;align-self:stretch;transform:none}
+.notice-list .tab.type4 #tabs button[aria-selected=true]{border-bottom-color:#2a5caa}
+.notice-list .tit .more-btn svg{display:block;width:24px;height:24px}

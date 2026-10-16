@@ -19,3 +19,6 @@ header .header-bottom.all-open{display:block}header .header-bottom.all-open #gnb
 
 /* Direct links have no expandable-submenu arrow. */
 header .gnb-wrap.type-depth3 .wrap>ul>li>a:not([aria-expanded])::before{display:none;background:none}
+
+/* Anchor the visible portrait to the slogan even when its box becomes narrower. */
+@media(min-width:1024px){.mayor-section .top .mayor-info::before{top:auto!important;bottom:0!important;background-position:left bottom!important;background-size:contain}}
