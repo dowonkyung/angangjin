@@ -75,3 +75,6 @@ header #zoom-menu a.zoom-reset{justify-content:center;gap:4px}
  html.mobile-menu-open header .top-menu>li:first-child{display:none}
  html.mobile-menu-open header .top-menu>li>a{font-size:15px}
 }
+
+/* District slogan frame. */
+#mayor-slogan{border-radius:20px;border:1px solid #FFF;box-sizing:border-box}
