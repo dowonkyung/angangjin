@@ -98,3 +98,19 @@ body.board-page .content-head .content-title-wrap .content-actions button{backgr
  body.board-page .board-search #board-query:focus,
  body.board-page .board-search #board-query:focus-visible{outline:none;outline-offset:0;border-color:#111;box-shadow:inset 0 0 0 2px #111}
 }
+
+/* One separator per visible crumb, with a dedicated mobile ellipsis item. */
+.content-head .breadcrumb .breadcrumb-ellipsis{display:none}
+@media only screen and (max-width:47.99em){
+ .content-head .breadcrumb ul{display:flex;align-items:center;flex-wrap:nowrap;gap:0}
+ .content-head .breadcrumb ul li{position:static;flex:none;margin:0;padding:0;line-height:24px}
+ .content-head .breadcrumb ul li:not(:first-child):not(:last-child):not(.breadcrumb-ellipsis){display:none}
+ .content-head .breadcrumb ul li:first-child,.content-head .breadcrumb ul li:last-child,.content-head .breadcrumb ul li.breadcrumb-ellipsis{display:flex;align-items:center}
+ .content-head .breadcrumb ul li+li{padding-left:8px;gap:8px}
+ .content-head .breadcrumb ul li::after{display:none!important}
+ .content-head .breadcrumb ul li:first-child::before{display:none!important}
+ .content-head .breadcrumb ul li+li::before{content:"";position:static;display:block;flex:0 0 16px;width:16px;height:16px;margin:0;transform:none;background:url('assets/board/breadcrumb-arrow.svg') no-repeat center/16px}
+ .content-head .breadcrumb ul li a{line-height:24px;padding-top:0;padding-bottom:0}
+ .content-head .breadcrumb ul li:first-child a{background-position:4px center}
+}
+@media only screen and (max-width:47.99em){.content-head .breadcrumb ul li:last-child::before{content:"";position:static;display:block;flex:0 0 16px;width:16px;height:16px;margin:0;transform:none;background:url("assets/board/breadcrumb-arrow.svg") no-repeat center/16px}}

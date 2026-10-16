@@ -1,0 +1,8 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>페이지를 불러오는 중 - 안강진구청</title></head><body><main><h1>페이지를 불러오는 중입니다.</h1><p id="message" role="status">잠시만 기다려 주세요.</p><a href="/">안강진구청 홈으로</a></main><script>
+(async function(){
+ const keys=['news','notice','bid','legislation','general','gazette','press','briefing','facts'];
+ const parts=location.pathname.split('/').filter(Boolean),index=Number(parts[0])-1001;
+ if(!/^100[1-9]$/.test(parts[0]||'')||!keys[index]||parts.length>2||parts[1]&&!/^(?:[1-9]\d*|[0-9a-f]{8}-[0-9a-f-]{27}|sample-\d+)$/.test(parts[1])){document.querySelector('h1').textContent='페이지를 찾을 수 없습니다.';document.querySelector('#message').textContent='주소를 확인해 주세요.';return}
+ try{const response=await fetch('/'+keys[index]+'.html');if(!response.ok)throw Error();const source=await response.text();const html=source.includes('<base ')?source:source.replace('<head>','<head><base href="/">');document.open();document.write(html);document.close()}catch{document.querySelector('#message').textContent='페이지를 불러오지 못했습니다. 새로고침하거나 홈으로 이동해 주세요.'}
+})();
+</script></body></html>
