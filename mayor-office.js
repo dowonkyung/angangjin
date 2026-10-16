@@ -1,6 +1,13 @@
 (function(){
 const cfg=window.ANGANGJIN_OFFICE,byId=id=>document.getElementById(id),node=(tag,text,cls)=>{const n=document.createElement(tag);if(text)n.textContent=text;if(cls)n.className=cls;return n};
 const routes={'송은석입니다':'greeting','인사말':'greeting','프로필':'profile','취임사':'inaugural','구정24시':'gallery','구정갤러리':'gallery','포토갤러리':'photo','영상갤러리':'video','구정뉴스':'news','언론기사':'media','공약과 실천':'promise','공약실천':'promise','공약관리':'promise','매니페스토':'manifesto','선거공약':'election'};
+
+const currentLabels={greeting:'인사말',profile:'프로필',inaugural:'취임사',gallery:'구정갤러리',photo:'포토갤러리',video:'영상갤러리',news:'구정뉴스',media:'언론기사',promise:'공약관리',manifesto:'매니페스토',election:'선거공약'};
+function restoreCurrentGroup(top){const group=top.querySelector('.gnb-wrap .wrap>ul');if(!group)return;const current=group.querySelector(':scope>li.current-item');if(!current)return;[...group.children].forEach(item=>{const hasChildren=!!item.querySelector('.depth3-wrap');item.classList.toggle('active',item===current);if(hasChildren)item.firstElementChild.setAttribute('aria-expanded',String(item===current))});}
+function syncCurrentNavigation(){const label=currentLabels[location.hash.slice(1)];document.querySelectorAll('#gnb .current-section,#gnb .current-item').forEach(x=>x.classList.remove('current-section','current-item'));document.querySelectorAll('#gnb [aria-current="page"]').forEach(x=>x.removeAttribute('aria-current'));if(!label)return;const links=[...document.querySelectorAll('#gnb a[data-page]')];let leaf=links.find(x=>x.dataset.page===label&&!x.closest('.tit'));if(!leaf)leaf=[...document.querySelectorAll('#gnb .gnb-wrap .wrap>ul>li>a')].find(x=>x.textContent.trim()===label);if(!leaf)return;leaf.setAttribute('aria-current','page');const top=leaf.closest('#gnb>ul>li'),item=leaf.closest('.gnb-wrap .wrap>ul>li');top.classList.add('current-section');item.classList.add('current-item');restoreCurrentGroup(top);}
+document.querySelectorAll('#gnb>ul>li>a').forEach(a=>a.addEventListener('click',()=>restoreCurrentGroup(a.parentElement)));
+window.addEventListener('hashchange',syncCurrentNavigation);syncCurrentNavigation();
+
 const external={'오시는 길':'directions.html','구청장실':'mayor.html'};
 document.querySelectorAll('[data-page]').forEach(a=>{if(routes[a.dataset.page])a.href='mayor.html#'+routes[a.dataset.page];else if(external[a.dataset.page])a.href=external[a.dataset.page]});
 document.addEventListener('click',e=>{const a=e.target.closest('[data-page]');if(a&&routes[a.dataset.page]&&!a.hasAttribute('aria-expanded')){e.preventDefault();e.stopImmediatePropagation();closeAll();location.hash=routes[a.dataset.page]}else if(a&&external[a.dataset.page]){e.preventDefault();e.stopImmediatePropagation();location.href=external[a.dataset.page]}},true);
