@@ -17,3 +17,5 @@
 
 /* Current page remains distinct from the menu currently being explored. */
 .office-page #gnb>ul>li.current-section>a{color:#063A74;font-weight:700}.office-page #gnb .gnb-wrap .wrap>ul>li.current-item>a{color:#063A74;font-weight:700;background:#fff}.office-page #gnb .gnb-wrap a[aria-current="page"]{font-weight:700;color:#063A74;text-decoration:underline;text-underline-offset:3px}.office-page #gnb .depth3-wrap li>a[aria-current="page"]{background:#EEF2F7;border-radius:6px}
+
+.office-council-home{display:inline-flex;align-items:center;gap:8px}.office-council-home>img{width:16px;height:16px}
