@@ -18,7 +18,7 @@
   }
   let opened=false;
   groups.forEach((group,index)=>{const {trigger,panel,row}=group;trigger.classList.add('arrow');trigger.setAttribute('role','button');panel.classList.add('depth');if(!panel.id)panel.id='lnb-depth-'+index;trigger.setAttribute('aria-controls',panel.id);const open=!opened&&row.classList.contains('active');if(open)opened=true;setExpanded(group,open,false);
-   function toggle(e){e.preventDefault();e.stopImmediatePropagation();const open=trigger.getAttribute('aria-expanded')!=='true';groups.forEach(other=>{if(other!==group&&other.trigger.getAttribute('aria-expanded')==='true')setExpanded(other,false)});setExpanded(group,open)}
+   function toggle(e){e.preventDefault();e.stopImmediatePropagation();const open=trigger.getAttribute('aria-expanded')!=='true';if(open)side.querySelectorAll(':scope>ul>li').forEach(row=>{if(row!==group.row)row.classList.remove('active')});groups.forEach(other=>{if(other!==group&&other.trigger.getAttribute('aria-expanded')==='true')setExpanded(other,false)});setExpanded(group,open)}
    trigger.addEventListener('click',toggle);trigger.addEventListener('keydown',e=>{if(e.key===' '){toggle(e)}});
   });
  }
