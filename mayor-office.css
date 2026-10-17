@@ -30,3 +30,5 @@
 .office-gallery-card p{padding:0;margin:10px 0 0;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
 .office-gallery-play{position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:56px;height:40px;border-radius:10px;background:#e62117;color:#fff;font-size:22px;z-index:1}
 @media(max-width:767px){.office-gallery-card .office-gallery-image>img{border-radius:10px}.office-gallery-card p{padding:0}}
+
+.office-slides{touch-action:pan-y pinch-zoom;user-select:none;-webkit-user-select:none}.office-slide img{-webkit-user-drag:none}
