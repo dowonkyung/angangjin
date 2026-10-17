@@ -3,7 +3,7 @@ begin;
 create extension if not exists pgcrypto with schema extensions;
 create table if not exists public.community_posts (
  id uuid primary key default gen_random_uuid(),
- board_type text not null check(board_type in ('free','praise')),
+ board_type text not null check(board_type in ('free','praise','civil-board')),
  title text not null check(char_length(title) between 1 and 200),
  author_mask text not null,
  body_html text not null check(octet_length(body_html)<=1048576),
@@ -51,7 +51,7 @@ language plpgsql security definer set search_path='' as $$
 declare new_id uuid;
 begin
  perform public.community_validate(p_title,p_body,p_assets);
- if p_board not in ('free','praise') or p_author is null or char_length(btrim(p_author)) not between 1 and 40 or p_identity_kind not in ('naver','minecraft') or p_identity is null or char_length(btrim(p_identity)) not between 1 and 100 or p_pin is null or p_pin !~ '^[0-9]{4}$' then raise exception '작성자명, 네이버 아이디 또는 마인크래프트 닉네임, 4자리 비밀번호를 확인해 주세요.';end if;
+ if p_board not in ('free','praise','civil-board') or p_author is null or char_length(btrim(p_author)) not between 1 and 40 or p_identity_kind not in ('naver','minecraft') or p_identity is null or char_length(btrim(p_identity)) not between 1 and 100 or p_pin is null or p_pin !~ '^[0-9]{4}$' then raise exception '작성자명, 네이버 아이디 또는 마인크래프트 닉네임, 4자리 비밀번호를 확인해 주세요.';end if;
  insert into public.community_posts(board_type,title,author_mask,body_html,attachments) values(p_board,btrim(p_title),left(btrim(p_author),1)||repeat('*',greatest(char_length(btrim(p_author))-1,0)),p_body,p_assets) returning id into new_id;
  insert into public.community_private(post_id,author_name,identity_kind,identity_value,pin_hash) values(new_id,btrim(p_author),p_identity_kind,btrim(p_identity),extensions.crypt(p_pin,extensions.gen_salt('bf',10)));
  return new_id;
