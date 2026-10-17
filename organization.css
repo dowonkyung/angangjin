@@ -951,3 +951,5 @@ li:has(> .org-side-left) {
 .organization-page .org-level-departments .dept-list{padding:16px 0 16px 20px}
 .organization-page .org-directors{margin-top:24px}
 .organization-page .org-city .org-level-departments>.dept,.organization-page .org-city .org-level-departments>li{padding-top:24px}
+
+.organization-page .org-side{justify-content:center}
