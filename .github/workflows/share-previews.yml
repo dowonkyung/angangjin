@@ -2,7 +2,7 @@ name: Refresh post share previews
 on:
   push:
     branches: [main]
-    paths-ignore: ['share/**']
+    paths-ignore: ['share/**', 'civil-board/**']
   workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
@@ -22,12 +22,12 @@ jobs:
         with:
           node-version: '22'
       - run: node scripts/refresh-share-pages.cjs
-      - name: Publish updated previews
+      - name: Publish updated previews and civil post addresses
         run: |
-          git add share
+          git add share civil-board
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Refresh public post share previews"
+          git commit -m "Refresh public previews and permanent civil post addresses"
           git pull --rebase origin main
           git push
