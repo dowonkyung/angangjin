@@ -1,0 +1,18 @@
+// Run from any directory: node scripts/sync-navigation.cjs
+const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
+const root=path.resolve(__dirname,'..'),context={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'navigation-config.js'),'utf8'),context);
+const navigation=context.window.ANGANGJIN_NAVIGATION;
+const assets=['navigation-config.js','app.js','board-shared.js','board-links.js','lnb.css'];
+const version=crypto.createHash('sha256').update(assets.map(p=>fs.readFileSync(path.join(root,p),'utf8')).join('\n')).digest('hex').slice(0,12);
+let total=0;
+for(const name of fs.readdirSync(root).filter(n=>n.endsWith('.html'))){
+const file=path.join(root,name),original=fs.readFileSync(file,'utf8');let html=original;
+if(!/(?:app|board-shared|board-links)\.js/.test(html))continue;
+if(!html.includes('navigation-config.js'))html=html.replace(/<script\b/,'<script src="navigation-config.js" defer></script><script');
+const side=navigation.renderSide(name);
+if(side)html=html.replace(/<nav class="lnb-list"[^>]*>[\s\S]*?<\/nav>/,'<nav class="lnb-list" aria-label="'+navigation.sideFor(name).section+' 하위 메뉴">'+side+'</nav>');
+if(html.includes('lnb-list')&&!html.includes('href="lnb.css'))html=html.replace('</head>','<link rel="stylesheet" href="lnb.css"></head>');
+for(const asset of assets){const escaped=asset.replace(/\./g,'\\.');html=html.replace(new RegExp('((?:src|href)="'+escaped+')(?:\\?[^"]*)?"','g'),'$1?v='+version+'"')}
+if(html!==original){fs.writeFileSync(file,html);total++}
+}
+console.log('Navigation synchronized: '+total+' pages; asset version '+version);
