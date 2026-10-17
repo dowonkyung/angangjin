@@ -81,9 +81,13 @@
       ]
     },
     "praise": {
-      "next": 1,
-      "posts": {},
-      "active": []
+      "next": 2,
+      "posts": {
+        "2b0d43da-999d-40eb-93b8-170fe1acb000": 1
+      },
+      "active": [
+        "2b0d43da-999d-40eb-93b8-170fe1acb000"
+      ]
     },
     "civil-board": {
       "next": 5,
