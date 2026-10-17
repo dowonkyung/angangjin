@@ -967,3 +967,9 @@ li:has(> .org-side-left) {
 .organization-page .org a.org-director:is(:hover,:active,:visited,:focus){color:color-mix(in srgb,var(--org-primary) 65%,black)}
 .organization-page .org-level-departments .dept-title{background:color-mix(in srgb,var(--org-primary) 5%,white);border-color:color-mix(in srgb,var(--org-primary) 45%,white)}
 .organization-page .org-node-citizen{cursor:default}
+
+.organization-page .org-node-citizen{background-color:var(--org-accent)}
+.organization-page .org-node-vice{background-color:var(--org-accent);border-color:var(--org-accent)}
+.organization-page .org-director{border-color:color-mix(in srgb,var(--org-accent) 45%,white)}
+.organization-page .org-level-departments>.dept:nth-child(even)>.dept-title{background:color-mix(in srgb,var(--org-accent) 7%,white);border-color:color-mix(in srgb,var(--org-accent) 55%,white)}
+.organization-page .org-level-departments>.dept:nth-child(even)>.dept-list{border-color:color-mix(in srgb,var(--org-accent) 40%,white)}

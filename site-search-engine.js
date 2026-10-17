@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-const boards={news:'새소식',notice:'고시 공고',bid:'입찰 공고',legislation:'입법 예고',general:'일반 공고',gazette:'안강진 구보',press:'보도자료',briefing:'기자회견(브리핑)',facts:'사실은 이렇습니다',free:'자유게시판',praise:'칭찬게시판','civil-board':'민원게시판',photo:'포토갤러리'};
+const boards={activity:'구청장동정',news:'새소식',notice:'고시 공고',bid:'입찰 공고',legislation:'입법 예고',general:'일반 공고',gazette:'안강진 구보',press:'보도자료',briefing:'기자회견(브리핑)',facts:'사실은 이렇습니다',free:'자유게시판',praise:'칭찬게시판','civil-board':'민원게시판',photo:'포토갤러리'};
 const sources=[
 {table:'news_posts',label:'새소식',type:'news',category:'board',published:true,fields:['title','department','body_text'],select:'id,title,department,body_text,created_at'},
 {table:'notice_posts',label:'고시·공고',category:'board',published:true,fields:['title','department','body_text','notice_number','issue_name'],select:'id,board_type,title,department,body_text,notice_number,issue_name,created_at'},

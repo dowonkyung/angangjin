@@ -2,7 +2,7 @@
 begin;
 create table if not exists public.publication_posts (
   id uuid primary key default gen_random_uuid(),
-  board_type text not null check (board_type in ('gazette','press','briefing','facts')),
+  board_type text not null check (board_type in ('gazette','press','briefing','facts','activity')),
   contact text not null default '' check (char_length(contact)<=100),
   thumbnail_path text,
   summary text not null default '' check (char_length(summary)<=500),
@@ -17,7 +17,7 @@ create table if not exists public.publication_posts (
 );
 -- Expand the category check on projects that already created these tables.
 alter table public.publication_posts drop constraint if exists publication_posts_board_type_check;
-alter table public.publication_posts add constraint publication_posts_board_type_check check (board_type in ('gazette','press','briefing','facts'));
+alter table public.publication_posts add constraint publication_posts_board_type_check check (board_type in ('gazette','press','briefing','facts','activity'));
 create index if not exists publication_posts_published_date on public.publication_posts(status,created_at desc);
 alter table public.publication_posts enable row level security;
 grant select on public.publication_posts to anon, authenticated;
