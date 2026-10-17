@@ -3,3 +3,7 @@
 @media print{.directory-toolbar,.directory-editor,.directory-source>a{display:none!important}.directory-page .content-table{min-width:0}.directory-page .table-wrapper{overflow:visible}.directory-page tr{break-inside:avoid}}
 .directory-page .directory-source{margin-top:40px}.directory-page .directory-source:first-child{margin-top:0}
 @media(max-width:767px){body.directory-page .content-table{min-width:0}}
+
+.directory-page .directory-toolbar{justify-content:flex-end;margin:24px 0 0}
+
+.directory-page .directory-toolbar:has(>#directory-edit[hidden]){display:none}
