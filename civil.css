@@ -9,3 +9,5 @@
 .civil-page .board-view-line{border-bottom:1px solid #CDD1D5}
 @media(max-width:47.99em){.civil-page .content-body{margin-top:40px}.civil-page .box-text{font-size:15px;padding:16px}.civil-page .manager-box{gap:12px;flex-direction:column;padding:20px 0}.civil-page .manager-box p{font-size:15px}}
 @media print{.civil-page .content-body{margin:0;padding:0}}
+
+.civil-page .board-view-info.manager-box{display:flex;flex-wrap:wrap;gap:16px 40px;margin-top:70px;border-radius:12px;background:#f4f5f6;padding:30px 40px}.civil-page .manager-box p{font-size:17px;color:#464c53}.civil-page .manager-box strong{margin-right:8px;font-weight:700;color:#1e2124}@media(max-width:47.99em){.civil-page .board-view-info.manager-box{border-radius:8px;padding:16px;gap:12px}.civil-page .manager-box p{font-size:15px}}

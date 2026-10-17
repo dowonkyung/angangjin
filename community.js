@@ -9,7 +9,7 @@ function date(value){return new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seou
 function token(){try{return sessionStorage.getItem('community:'+key+':'+id)||''}catch{return ''}}
 function remember(value){try{sessionStorage.setItem('community:'+key+':'+id,value)}catch{}}
 const admin=()=>Boolean(window.HeaderAuth.state.admin);
-$('#print-page').onclick=e=>{e.preventDefault();window.print()};$('#share-link').onclick=async e=>{e.preventDefault();try{if(navigator.share)await navigator.share({title:document.title,url:location.href});else{await navigator.clipboard.writeText(location.href);status('링크를 복사했습니다.')}}catch{}};
+$('#print-page').onclick=e=>{e.preventDefault();window.print()};$('#share-link').onclick=async e=>{e.preventDefault();try{if(navigator.share)await navigator.share({title:document.title,url:await window.PostShare.url()});else{await navigator.clipboard.writeText(await window.PostShare.url());status('링크를 복사했습니다.')}}catch{}};
 await window.HeaderAuth.ready;const client=window.HeaderAuth.client;
 if(!client){status('게시판 저장소 연결 설정이 필요합니다.');return}
 async function rpc(name,args){const r=await client.rpc(name,args);if(r.error)throw Error(r.error.message);return r.data}

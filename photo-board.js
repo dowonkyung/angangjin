@@ -6,8 +6,8 @@
  let auth={user:null,admin:false};let toastTimer,schemaReady=true;
  function toast(message){$('#board-toast').textContent=message;$('#board-toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#board-toast').classList.remove('visible'),4500)}
  function errorMessage(error){if(board.isPublication&&/(photo_posts|photo_assets|schema cache)/i.test(error?.message||''))return '포토갤러리 저장소 초기 설정이 필요합니다. PHOTO_SETUP.md에 따라 supabase/photos.sql을 실행해 주세요.';if(board.isNotice&&/(notice_posts|notice_assets|schema cache)/i.test(error?.message||''))return '공고 저장소 초기 설정이 필요합니다. NOTICE_SETUP.md에 따라 supabase/notices.sql을 실행해 주세요.';if((board.isBriefing||board.isFact)&&/board_type_check/i.test(error?.message||''))return '언론 게시판 분류 추가가 필요합니다. supabase/media-boards.sql을 실행해 주세요.';if(/photo_posts|photo_assets|schema cache/i.test(error?.message||''))return '포토갤러리 설정이 필요합니다. Supabase SQL Editor에서 supabase/photos.sql을 실행해 주세요.';return error?.message||'요청을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.'}
- $('#copy-link').onclick=async()=>{try{await navigator.clipboard.writeText(location.href);toast('링크를 복사했습니다.')}catch{toast('주소창의 링크를 복사해 주세요.')}};
- $('#share-link').onclick=async()=>{try{if(navigator.share)await navigator.share({title:document.title,url:location.href});else $('#copy-link').click()}catch(e){if(e.name!=='AbortError')toast(errorMessage(e))}};
+ $('#copy-link').onclick=async()=>{try{await navigator.clipboard.writeText(await window.PostShare.url());toast('링크를 복사했습니다.')}catch{toast('주소창의 링크를 복사해 주세요.')}};
+ $('#share-link').onclick=async()=>{try{if(navigator.share)await navigator.share({title:document.title,url:await window.PostShare.url()});else $('#copy-link').click()}catch(e){if(e.name!=='AbortError')toast(errorMessage(e))}};
  $('#print-page').onclick=()=>window.print();
  const status=$('#connection-status');
  status.textContent=store.configured?'':'게시판 저장소 연결 전입니다. 아래 목록은 디자인 확인용 예시이며, 작성한 글은 이 기기에만 임시저장할 수 있습니다.';
