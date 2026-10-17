@@ -32,13 +32,15 @@
       "active": []
     },
     "press": {
-      "next": 3,
+      "next": 4,
       "posts": {
         "37cd191f-b946-47f2-a3d7-dbc292a7f064": 1,
-        "97294eef-c534-4a21-aa09-c1ae9bba938c": 2
+        "97294eef-c534-4a21-aa09-c1ae9bba938c": 2,
+        "5b7ca088-28e4-462a-9343-ed16bbb99ebd": 3
       },
       "active": [
-        "37cd191f-b946-47f2-a3d7-dbc292a7f064"
+        "37cd191f-b946-47f2-a3d7-dbc292a7f064",
+        "5b7ca088-28e4-462a-9343-ed16bbb99ebd"
       ]
     },
     "briefing": {
@@ -90,14 +92,16 @@
       ]
     },
     "civil-board": {
-      "next": 5,
+      "next": 7,
       "posts": {
         "34fe7af0-90e8-456d-9f05-38aad9aa1ffa": 1,
         "da094d1b-53a2-437a-9d96-5065143d3de4": 2,
         "31d1ff81-5839-47eb-9feb-b350531d4b96": 3,
-        "25fdefa9-5ea1-418a-a130-7f21efa38b29": 4
+        "25fdefa9-5ea1-418a-a130-7f21efa38b29": 4,
+        "04f117bd-76e9-404d-a10c-5de05ac5b3f4": 6
       },
       "active": [
+        "04f117bd-76e9-404d-a10c-5de05ac5b3f4",
         "25fdefa9-5ea1-418a-a130-7f21efa38b29",
         "34fe7af0-90e8-456d-9f05-38aad9aa1ffa"
       ]
