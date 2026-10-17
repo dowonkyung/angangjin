@@ -16,10 +16,10 @@ for(const [name,groups] of Object.entries(menu)){
 function closeGnb(){gnbDim.hidden=true;document.querySelectorAll('#gnb>ul>li').forEach(li=>{li.classList.remove('active');li.firstElementChild.setAttribute('aria-expanded','false')})}
 const bottom=document.querySelector('.header-bottom'),all=document.querySelector('#menuAll');
 const mobileMenuMedia=matchMedia('(max-width:63.99em)');let menuInert=[];
-all.href='sitemap.html';
-function syncMenuButton(){if(mobileMenuMedia.matches){all.setAttribute('aria-expanded',String(bottom.classList.contains('all-open')));all.setAttribute('aria-controls','header-bottom')}else{closeAll();all.removeAttribute('aria-expanded');all.removeAttribute('aria-controls')}}
+all.href='mayor.html#sitemap';
+function syncMenuButton(){if(mobileMenuMedia.matches){all.setAttribute('aria-expanded',String(bottom.classList.contains('all-open')));all.setAttribute('aria-controls','header-bottom')}else{closeAll();all.setAttribute('aria-expanded','false');all.setAttribute('aria-controls','sitemapPopup');all.setAttribute('aria-haspopup','dialog')}}
 function openMobileMenu(){closeDropdowns();closeGnb();bottom.classList.add('all-open');document.documentElement.classList.add('mobile-menu-open');all.setAttribute('aria-expanded','true');bottom.setAttribute('role','dialog');bottom.setAttribute('aria-modal','true');bottom.setAttribute('aria-label','전체메뉴');menuInert=[...document.querySelectorAll('main,footer,.header-top,.header-middle .bottom-menu')].map(e=>({e,old:e.inert}));menuInert.forEach(x=>x.e.inert=true);const first=navList.querySelector(':scope>li.current-section')||navList.firstElementChild;first.classList.add('active');first.firstElementChild.setAttribute('aria-expanded','true');gnbDim.hidden=true;bottom.querySelectorAll('.gnb-wrap .wrap>ul>li>a[aria-expanded]').forEach(a=>a.setAttribute('aria-expanded','true'));document.querySelector('.mobile-close a').focus()}
-all.onclick=e=>{if(mobileMenuMedia.matches){e.preventDefault();openMobileMenu()}else closeGnb()};
+all.onclick=e=>{e.preventDefault();if(mobileMenuMedia.matches)openMobileMenu();else openOfficeSitemap()};
 mobileMenuMedia.addEventListener('change',syncMenuButton);syncMenuButton();
 document.addEventListener('click',e=>{if(bottom.classList.contains('all-open')&&e.target.closest('.mobile-login a'))closeAll()},true);
 document.addEventListener('keydown',e=>{if(e.key!=='Tab'||!bottom.classList.contains('all-open')||document.querySelector('dialog[open]'))return;const links=[...document.querySelectorAll('.header-bottom a,.header-bottom button,.header-middle .top-menu a')].filter(a=>a.getClientRects().length&&!a.closest('[hidden]'));const first=links[0],last=links[links.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}});
@@ -42,3 +42,24 @@ const headerSearchMedia=matchMedia('(min-width:1024px)');
 function syncHeaderSearch(){document.querySelector('#header-search').hidden=!headerSearchMedia.matches;document.querySelector('.total-search').setAttribute('aria-expanded','false')}
 headerSearchMedia.addEventListener('change',syncHeaderSearch);syncHeaderSearch();
 const searchClose=document.createElement('button');searchClose.type='button';searchClose.className='header-search-close';searchClose.textContent='×';searchClose.setAttribute('aria-label','통합검색 닫기');searchClose.onclick=()=>{closeDropdowns();document.querySelector('.total-search').focus()};document.querySelector('#header-search').append(searchClose);
+
+
+// Desktop all-menu follows the reference sitemap popup; mobile keeps its header menu.
+const officeSitemap=document.createElement('dialog');officeSitemap.id='sitemapPopup';officeSitemap.className='office-sitemap-popup';officeSitemap.setAttribute('aria-labelledby','office-sitemap-title');
+const sitemapTitle=document.createElement('h2');sitemapTitle.id='office-sitemap-title';sitemapTitle.textContent='전체메뉴';
+const sitemapClose=document.createElement('button');sitemapClose.type='button';sitemapClose.className='office-sitemap-close';sitemapClose.setAttribute('aria-label','전체메뉴 닫기');sitemapClose.innerHTML='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19" stroke="#464C53" stroke-width="1.6" stroke-linecap="round"/></svg>';
+const sitemapBody=document.createElement('nav');sitemapBody.className='popup-body';sitemapBody.setAttribute('aria-label','열린구청장실 전체메뉴');
+const sitemapList=document.createElement('ul');sitemapList.className='portal-sitemap';
+const officeRoutes={'송은석입니다':'mayor.html#greeting','인사말':'mayor.html#greeting','프로필':'mayor.html#profile','취임사':'mayor.html#inaugural','구정24시':'mayor.html#gallery','구정갤러리':'mayor.html#gallery','포토갤러리':'photo.html','영상갤러리':'video.html','구정뉴스':'mayor.html#news','언론기사':'mayor.html#media','공약과 실천':'mayor.html#promise','공약실천':'mayor.html#promise','공약관리':'mayor.html#promise','매니페스토':'mayor.html#manifesto','선거공약':'mayor.html#election'};
+function sitemapLink(text){const a=document.createElement('a');a.textContent=text;a.href=officeRoutes[text]||'mayor.html';return a}
+for(const [group,items]of Object.entries(menu)){const column=document.createElement('li');column.append(sitemapLink(group));const list=document.createElement('ul');list.className='normal-type dot';for(const[label,children]of Object.entries(items)){const item=document.createElement('li');item.append(sitemapLink(label));if(children.length){const nested=document.createElement('ul');nested.className='normal-type hyphen';for(const child of children){const li=document.createElement('li');li.append(sitemapLink(child));nested.append(li)}item.append(nested)}list.append(item)}column.append(list);sitemapList.append(column)}
+sitemapList.style.setProperty('--sitemap-columns',Object.keys(menu).length);
+sitemapBody.append(sitemapList);officeSitemap.append(sitemapTitle,sitemapClose,sitemapBody);document.body.append(officeSitemap);
+let sitemapOverflow='';
+function closeOfficeSitemap(){if(officeSitemap.open)officeSitemap.close()}
+function openOfficeSitemap(){if(mobileMenuMedia.matches){openMobileMenu();return}if(officeSitemap.open)return;closeAll();closeDropdowns();sitemapOverflow=document.documentElement.style.overflow;document.documentElement.style.overflow='hidden';all.setAttribute('aria-expanded','true');officeSitemap.showModal();sitemapClose.focus()}
+officeSitemap.addEventListener('close',()=>{document.documentElement.style.overflow=sitemapOverflow;all.setAttribute('aria-expanded','false');all.focus()});
+sitemapClose.onclick=closeOfficeSitemap;
+officeSitemap.addEventListener('click',e=>{if(e.target.closest('a'))closeOfficeSitemap();else if(e.target===officeSitemap){const rect=officeSitemap.getBoundingClientRect();if(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom)closeOfficeSitemap()}});
+mobileMenuMedia.addEventListener('change',()=>{if(officeSitemap.open)closeOfficeSitemap()});
+window.OfficeSitemap={open:openOfficeSitemap,close:closeOfficeSitemap};
