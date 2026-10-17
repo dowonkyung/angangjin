@@ -2506,3 +2506,17 @@
   margin: 100px 0 -15px;
   border-top: 1px solid #CDD1D5;
 }
+
+/* LNB typography and spacing match the saved municipal reference. */
+.board-layout .lnb .lnb-list h2{font-size:24px;line-height:1.5}
+.board-layout .lnb .lnb-list>ul>li>.depth2>a{display:flex;align-items:center;font-size:17px;font-weight:700;line-height:1.5;padding:16px 16px 16px 8px}
+.board-layout .lnb .lnb-list>ul>li>.depth2>a.arrow{padding-right:44px}
+.board-layout .lnb .lnb-list>ul>li>.depth2>a.arrow::before{transition:transform .26s ease-in-out}
+.board-layout .lnb .lnb-list>ul>li>.depth2>a.arrow[aria-expanded="false"]::before{transform:translateY(-50%)}
+.board-layout .lnb .lnb-list>ul>li>.depth2>a.arrow[aria-expanded="true"]::before{transform:translateY(-50%) rotate(180deg)}
+.board-layout .lnb .lnb-list>ul>li>.depth3{display:block;padding:0;overflow:hidden}
+.board-layout .lnb .lnb-list>ul>li>.depth3[hidden]{display:none!important}
+.board-layout .lnb .lnb-list>ul>li>.depth3>ul{padding:10px 0}
+.board-layout .lnb .lnb-list>ul>li>.depth3>ul>li>a{display:block;position:relative;padding:8px 8px 8px 27px;font-size:17px;line-height:1.5;color:#1e2124}
+.board-layout .lnb .lnb-list>ul>li>.depth3>ul>li>a::after{content:"•";position:absolute;left:12px;top:8px}
+@media(prefers-reduced-motion:reduce){.board-layout .lnb .lnb-list>ul>li>.depth2>a.arrow::before{transition:none}}

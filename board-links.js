@@ -1,6 +1,28 @@
 (function(){
  const routes={'열린구청장실':'mayor.html','구청장실':'mayor.html','공약과 실천':'mayor.html#promise','공약과실천':'mayor.html#promise','포토갤러리':'photo.html','영상갤러리':'video.html','민원/제안/신고':'civil.html','민원참여':'civil.html','오시는 길':'directions.html','청사 안내':'building.html','역대 구청장':'mayors.html','안강진 역사':'history.html','안강진구 연혁':'history.html','행정구역':'administration.html','구민의 노래(구가)':'song.html','구의 동식물':'nature.html','구의 상징':'symbols.html','새소식':'news.html','고시 공고':'notice.html','입찰 공고':'bid.html','입법 예고':'legislation.html','일반 공고':'general.html','안강진 구보':'gazette.html','보도자료':'press.html','기자회견(브리핑)':'briefing.html','사실은 이렇습니다':'facts.html'};
  const side=document.querySelector('.lnb-list');if(side&&!['sitemap','symbols','song','nature','administration','history','mayors','building','directions','civil'].includes(document.body.dataset.boardMode)){const current=window.BoardContext?.key||'news';const groups=[{label:'새소식',href:'news.html',keys:['news'],children:[]},{label:'고시 공고',href:'notice.html',keys:['notice','bid','legislation','general','gazette'],children:['고시 공고','입찰 공고','입법 예고','일반 공고','안강진 구보']},{label:'언론 보도',href:'press.html',keys:['press','briefing','facts'],children:['보도자료','기자회견(브리핑)','사실은 이렇습니다']}];side.innerHTML='<h2>안강진소식</h2><ul>'+groups.map(g=>{const active=g.keys.includes(current);return '<li'+(active?' class="active"':'')+'><div class="depth2"><a href="'+g.href+'"'+(!g.children.length&&active?' aria-current="page"':'')+'>'+g.label+'</a></div>'+(g.children.length?'<div class="depth3" style="display:'+(active?'block':'none')+'"><ul>'+g.children.map(label=>{const href=routes[label]||'#none',selected=href===current+'.html';return '<li'+(selected?' class="active"':'')+'><a href="'+href+'"'+(selected?' aria-current="page"':'')+(!routes[label]?' data-page="'+label+'"':'')+'>'+label+'</a></li>'}).join('')+'</ul></div>':'')+'</li>'}).join('')+'</ul>'}
+
+ // Reference LNB: one expanded group, animated height, and keyboard support.
+ if(side){
+  const groups=[...side.querySelectorAll(':scope>ul>li')].map(row=>({row,trigger:row.querySelector(':scope>.depth2>a'),panel:row.querySelector(':scope>.depth3')})).filter(g=>g.trigger&&g.panel);
+  const animations=new Map();
+  function setExpanded(group,open,animate=true){
+   const {row,trigger,panel}=group,previous=animations.get(panel),from=panel.hidden?0:panel.getBoundingClientRect().height;
+   if(previous){previous.cancel();animations.delete(panel)}
+   row.classList.toggle('active',open);trigger.setAttribute('aria-expanded',String(open));trigger.title=open?'접기':'펼치기';panel.inert=!open;panel.hidden=false;panel.style.removeProperty('display');panel.style.height='auto';
+   if(!animate||matchMedia('(prefers-reduced-motion:reduce)').matches){panel.hidden=!open;return}
+   const to=open?panel.scrollHeight:0;
+   const animation=panel.animate([{height:from+'px'},{height:to+'px'}],{duration:260,easing:'ease-in-out'});
+   animations.set(panel,animation);
+   animation.finished.then(()=>{if(animations.get(panel)!==animation)return;panel.hidden=!open;panel.style.height='auto';animations.delete(panel)}).catch(()=>{});
+  }
+  let opened=false;
+  groups.forEach((group,index)=>{const {trigger,panel,row}=group;trigger.classList.add('arrow');trigger.setAttribute('role','button');panel.classList.add('depth');if(!panel.id)panel.id='lnb-depth-'+index;trigger.setAttribute('aria-controls',panel.id);const open=!opened&&row.classList.contains('active');if(open)opened=true;setExpanded(group,open,false);
+   function toggle(e){e.preventDefault();e.stopImmediatePropagation();const open=trigger.getAttribute('aria-expanded')!=='true';groups.forEach(other=>{if(other!==group&&other.trigger.getAttribute('aria-expanded')==='true')setExpanded(other,false)});setExpanded(group,open)}
+   trigger.addEventListener('click',toggle);trigger.addEventListener('keydown',e=>{if(e.key===' '){toggle(e)}});
+  });
+ }
+
  function hrefFor(a){if(routes[a.dataset.page])return routes[a.dataset.page];const article=a.dataset.article;if(article){const split=article.lastIndexOf(':'),name=article.slice(0,split);if(routes[name])return routes[name]+'?id=sample-'+(Number(article.slice(split+1))+1)}return null}
  document.querySelectorAll('[data-page],[data-article]').forEach(a=>{const href=hrefFor(a);if(href&&a.tagName==='A')a.href=href});
  document.addEventListener('click',e=>{const a=e.target.closest('[data-page],[data-article]');if(!a||a.hasAttribute('aria-expanded'))return;const href=hrefFor(a);if(!href)return;e.preventDefault();e.stopImmediatePropagation();if(e.ctrlKey||e.metaKey)window.open(href,'_blank','noopener');else location.href=href},true);
