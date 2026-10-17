@@ -960,6 +960,10 @@ li:has(> .org-side-left) {
 .organization-page .org-node-mayor,.organization-page .org-node-citizen{background-color:var(--org-primary);color:white}
 .organization-page .org-side{border-color:var(--org-accent);color:color-mix(in srgb,var(--org-accent) 65%,black)}
 .organization-page .org a:focus-visible{outline:2px solid #111;outline-offset:3px}
-.organization-page .org a:hover{text-decoration:underline}
+.organization-page .org a:is(:hover,:active,:visited,:focus){color:inherit;text-decoration:none}
+.organization-page .org a.org-node-mayor:is(:hover,:active,:visited,:focus),
+.organization-page .org a.org-node-vice:is(:hover,:active,:visited,:focus){color:#fff}
+.organization-page .org a.org-side:is(:hover,:active,:visited,:focus){color:color-mix(in srgb,var(--org-accent) 65%,black)}
+.organization-page .org a.org-director:is(:hover,:active,:visited,:focus){color:color-mix(in srgb,var(--org-primary) 65%,black)}
 .organization-page .org-level-departments .dept-title{background:color-mix(in srgb,var(--org-primary) 5%,white);border-color:color-mix(in srgb,var(--org-primary) 45%,white)}
 .organization-page .org-node-citizen{cursor:default}
