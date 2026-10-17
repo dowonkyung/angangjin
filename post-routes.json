@@ -32,12 +32,14 @@
       "active": []
     },
     "press": {
-      "next": 2,
+      "next": 3,
       "posts": {
-        "37cd191f-b946-47f2-a3d7-dbc292a7f064": 1
+        "37cd191f-b946-47f2-a3d7-dbc292a7f064": 1,
+        "97294eef-c534-4a21-aa09-c1ae9bba938c": 2
       },
       "active": [
-        "37cd191f-b946-47f2-a3d7-dbc292a7f064"
+        "37cd191f-b946-47f2-a3d7-dbc292a7f064",
+        "97294eef-c534-4a21-aa09-c1ae9bba938c"
       ]
     },
     "briefing": {
