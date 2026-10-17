@@ -38,8 +38,7 @@
         "97294eef-c534-4a21-aa09-c1ae9bba938c": 2
       },
       "active": [
-        "37cd191f-b946-47f2-a3d7-dbc292a7f064",
-        "97294eef-c534-4a21-aa09-c1ae9bba938c"
+        "37cd191f-b946-47f2-a3d7-dbc292a7f064"
       ]
     },
     "briefing": {
@@ -87,15 +86,16 @@
       "active": []
     },
     "civil-board": {
-      "next": 4,
+      "next": 5,
       "posts": {
         "34fe7af0-90e8-456d-9f05-38aad9aa1ffa": 1,
         "da094d1b-53a2-437a-9d96-5065143d3de4": 2,
-        "31d1ff81-5839-47eb-9feb-b350531d4b96": 3
+        "31d1ff81-5839-47eb-9feb-b350531d4b96": 3,
+        "25fdefa9-5ea1-418a-a130-7f21efa38b29": 4
       },
       "active": [
-        "34fe7af0-90e8-456d-9f05-38aad9aa1ffa",
-        "31d1ff81-5839-47eb-9feb-b350531d4b96"
+        "25fdefa9-5ea1-418a-a130-7f21efa38b29",
+        "34fe7af0-90e8-456d-9f05-38aad9aa1ffa"
       ]
     }
   }
