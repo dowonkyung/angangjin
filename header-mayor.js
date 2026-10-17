@@ -29,7 +29,7 @@ function closeDropdowns(){toggles.forEach(a=>{a.setAttribute('aria-expanded','fa
 document.addEventListener('click',e=>{if(!e.target.closest('.header-bottom')&&!e.target.closest('#menuAll')&&!(bottom.classList.contains('all-open')&&e.target.closest('.top-menu')))closeAll();if(!e.target.closest('.top-menu')&&!e.target.closest('.total-search')&&!e.target.closest('.header-search'))closeDropdowns();if(e.target.closest('a[href="#none"]'))e.preventDefault()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAll();closeDropdowns();all.focus()}});
 document.querySelectorAll('[data-zoom]').forEach(a=>a.onclick=e=>{e.preventDefault();document.body.style.zoom=a.dataset.zoom;document.querySelectorAll('[data-zoom]').forEach(z=>z.classList.toggle('active',z===a));closeDropdowns()});
-function headerSearch(){const q=document.querySelector('#applyTotalSearchTop').value.trim();location.href='news.html?q='+encodeURIComponent(q)}
+function headerSearch(){const input=document.querySelector('#applyTotalSearchTop'),q=input.value.trim();if(!q){input.focus();return}location.href='search.html?q='+encodeURIComponent(q)}
 document.querySelector('.header-search-btn').onclick=e=>{e.preventDefault();headerSearch()};document.querySelector('#applyTotalSearchTop').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();headerSearch()}};
 const mayor=window.ANGANGJIN_MAYOR,section=document.querySelector('.mayor-section');
 document.querySelector('#mayor-heading').textContent=`안강진구청장 ${mayor.name}입니다.`;
