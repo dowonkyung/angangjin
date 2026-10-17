@@ -8,7 +8,6 @@ on:
     - cron: '*/5 * * * *'
 permissions:
   contents: write
-  pages: write
 concurrency:
   group: share-previews
   cancel-in-progress: false
@@ -24,8 +23,6 @@ jobs:
           node-version: '22'
       - run: node scripts/refresh-share-pages.cjs
       - name: Publish updated previews
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           git add share
           if git diff --cached --quiet; then exit 0; fi
@@ -34,4 +31,3 @@ jobs:
           git commit -m "Refresh public post share previews"
           git pull --rebase origin main
           git push
-          gh api "repos/$GITHUB_REPOSITORY/pages/builds" --method POST
