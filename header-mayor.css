@@ -84,4 +84,4 @@ header .header-middle .etc-menu{align-items:center}
 @media(min-width:1024px){header .header-middle .etc-menu>li{display:flex;align-items:center}header .header-middle .etc-menu .header-search:not([hidden]){align-items:center}}
 
 /* Current municipal page: preserve link color and emphasize weight only. */
-header #gnb>ul>li.current-section>a{color:#063A74;font-weight:700}header #gnb .gnb-wrap .wrap>ul>li.current-item>a{background:#fff;font-weight:700}header #gnb .gnb-wrap a[aria-current="page"]{font-weight:700;text-decoration:none}header #gnb .depth3-wrap li>a[aria-current="page"]{background:#EEF2F7;border-radius:6px}
+header #gnb:not(:has(>ul>li.active))>ul>li.current-section>a{color:#063A74;font-weight:700}header #gnb .gnb-wrap .wrap>ul>li.current-item.active>a{background:#fff;font-weight:700}header #gnb .gnb-wrap a[aria-current="page"]{font-weight:700;text-decoration:none}header #gnb .depth3-wrap li>a[aria-current="page"]{background:#EEF2F7;border-radius:6px}
