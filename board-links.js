@@ -28,7 +28,7 @@
  document.addEventListener('click',e=>{const a=e.target.closest('[data-page],[data-article]');if(!a||a.hasAttribute('aria-expanded'))return;const href=hrefFor(a);if(!href)return;e.preventDefault();e.stopImmediatePropagation();if(e.ctrlKey||e.metaKey)window.open(href,'_blank','noopener');else location.href=href},true);
 
  // Keep the current municipal page selected independently of an opened menu.
- const pageFile=(location.pathname.split('/').pop()||'index.html').replace(/-(write|preview)\.html$/,'.html');
+ const pageFile=(location.pathname.split('/').pop()||'index.html').replace(/-(write|preview)\.html$/,'.html').replace('organization-directory.html','organization.html');
  const currentLeaf=[...document.querySelectorAll('#gnb a[data-page]')].find(a=>!a.closest('.tit')&&routes[a.dataset.page]===pageFile);
  if(currentLeaf){const top=currentLeaf.closest('#gnb>ul>li'),item=currentLeaf.closest('.gnb-wrap .wrap>ul>li');currentLeaf.setAttribute('aria-current','page');top.classList.add('current-section');item.classList.add('current-item');function selectCurrent(){[...item.parentElement.children].forEach(row=>{row.classList.toggle('active',row===item);if(row.querySelector('.depth3-wrap'))row.firstElementChild.setAttribute('aria-expanded',String(row===item));else row.firstElementChild.removeAttribute('aria-expanded')})}top.firstElementChild.addEventListener('click',selectCurrent);selectCurrent();}
 

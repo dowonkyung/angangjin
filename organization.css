@@ -72,11 +72,11 @@
 }
 
 .org-node-citizen {
-  background-color: #0b4a80;
+  background-color: var(--org-primary);
 }
 
 .org-node-mayor {
-  background-color: #A50082;
+  background-color: var(--org-primary);
 }
 .org-node-mayor::after {
   content: "";
@@ -95,8 +95,8 @@
 }
 
 .org-node-headquarter {
-  background: -webkit-gradient(linear, left top, left bottom, from(#d21fa5), to(#a0006a));
-  background: linear-gradient(180deg, #d21fa5 0%, #a0006a 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(var(--org-accent)), to(color-mix(in srgb,var(--org-accent) 65%,black)));
+  background: linear-gradient(180deg, var(--org-accent) 0%, color-mix(in srgb,var(--org-accent) 65%,black) 100%);
 }
 .org-node-headquarter::after {
   content: "";
@@ -228,9 +228,9 @@
   max-width: 100%;
   text-align: center;
   padding: 12px 36px;
-  background-color: #fef6ff;
-  border: 1px solid #A50082;
-  color: #A50082;
+  background-color: color-mix(in srgb,var(--org-accent) 5%,white);
+  border: 1px solid var(--org-primary);
+  color: var(--org-primary);
   position: relative;
   border-radius: 10px;
 }
@@ -254,9 +254,9 @@
   text-align: center;
   border-radius: 10px;
   padding: 12px 36px;
-  background-color: #fef6ff;
-  border: 1px solid #A50082;
-  color: #A50082;
+  background-color: color-mix(in srgb,var(--org-accent) 5%,white);
+  border: 1px solid var(--org-primary);
+  color: var(--org-primary);
   position: relative;
 }
 .node-head::after {
@@ -271,8 +271,8 @@
 }
 
 .org-node-vice {
-  background-color: #6b4db7;
-  border: 1px solid #6b4db7;
+  background-color: color-mix(in srgb,var(--org-primary) 85%,black);
+  border: 1px solid color-mix(in srgb,var(--org-primary) 85%,black);
   color: #fff;
 }
 .org-node-vice::before {
@@ -288,12 +288,12 @@
 
 .org-director {
   position: relative;
-  background: #ecf3fe;
+  background: color-mix(in srgb,var(--org-primary) 8%,white);
   padding: 10px 4px;
   width: 200px;
   max-width: calc(100% - 24px);
   border: 1px solid rgba(0, 0, 0, 0.06);
-  color: #374058;
+  color: color-mix(in srgb,var(--org-primary) 65%,black);
   border-radius: 10px;
 }
 .org-director:has(> a) {
@@ -388,16 +388,16 @@
       -ms-flex-pack: center;
           justify-content: center;
   position: relative;
-  background-color: #fef6ff;
+  background-color: color-mix(in srgb,var(--org-accent) 5%,white);
   border-width: 1px;
-  border-color: #d89dbf;
+  border-color: var(--org-accent);
   padding: 12px 26px;
   font-weight: 700;
-  border-color: #A50082;
+  border-color: var(--org-primary);
   border-style: solid;
   width: 200px;
   max-width: 100%;
-  color: #a0006a;
+  color: color-mix(in srgb,var(--org-accent) 65%,black);
   z-index: 1;
   border-radius: 10px;
 }
@@ -684,7 +684,7 @@ li:has(> .org-side-left) {
   gap: 4px;
   background-color: #fff;
   padding: 16px 0 16px 20px;
-  border-color: #bac1d4;
+  border-color: color-mix(in srgb,var(--org-primary) 30%,white);
   border-style: solid;
   border-width: 1px;
   min-height: 140px;
@@ -953,3 +953,13 @@ li:has(> .org-side-left) {
 .organization-page .org-city .org-level-departments>.dept,.organization-page .org-city .org-level-departments>li{padding-top:24px}
 
 .organization-page .org-side{justify-content:center}
+
+:root{--org-primary:#2A5CAA;--org-accent:#F04E4C}
+.organization-page .org a{text-decoration:none}
+.organization-page .org>a,.organization-page a.org-node,.organization-page a.org-director,.organization-page a.dept-title{cursor:pointer}
+.organization-page .org-node-mayor,.organization-page .org-node-citizen{background-color:var(--org-primary);color:white}
+.organization-page .org-side{border-color:var(--org-accent);color:color-mix(in srgb,var(--org-accent) 65%,black)}
+.organization-page .org a:focus-visible{outline:2px solid #111;outline-offset:3px}
+.organization-page .org a:hover{text-decoration:underline}
+.organization-page .org-level-departments .dept-title{background:color-mix(in srgb,var(--org-primary) 5%,white);border-color:color-mix(in srgb,var(--org-primary) 45%,white)}
+.organization-page .org-node-citizen{cursor:default}
